@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5E1420">
+<title>Belajar Hanyu · Kartu Kosakata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Noto+Serif+SC:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>汉语 <span>Belajar Hanyu</span></h1>
+  <p id="info">Memuat…</p>
+</header>
+
+<main>
+  <div class="bar">
+    <button id="btnPick" class="chip">Bab ▾</button>
+    <button class="chip" data-opt="hp" aria-pressed="false">Sembunyikan pinyin</button>
+    <button class="chip" data-opt="ha" aria-pressed="false">Sembunyikan arti</button>
+    <button class="chip" data-opt="shuf" aria-pressed="false">Acak</button>
+    <button class="chip" data-opt="hard" aria-pressed="false">Hanya yang sulit</button>
+  </div>
+
+  <div id="card" class="card" tabindex="0" role="button" aria-label="Kartu kosakata, tekan untuk membalik">
+    <div class="face front" id="front"></div>
+    <div class="face back" id="back"></div>
+  </div>
+
+  <div class="nav">
+    <button id="prev" class="round" aria-label="Sebelumnya">◀</button>
+    <span id="count">0 / 0</span>
+    <button id="next" class="round" aria-label="Berikutnya">▶</button>
+  </div>
+
+  <div class="actions">
+    <button id="btnAudio">🔊 Dengar</button>
+    <button id="btnStroke">✍ Guratan</button>
+    <button id="btnHard" data-mark="hard">Sulit</button>
+    <button id="btnOk" data-mark="ok">Hafal</button>
+  </div>
+  <p class="hint">Ketuk kartu untuk membalik · ← → untuk pindah · geser di layar sentuh</p>
+</main>
+
+<dialog id="pick">
+  <h2>Pilih bab</h2>
+  <div class="quick">
+    <button data-q="all">Semua</button>
+    <button data-q="h1">H1 (1–15)</button>
+    <button data-q="h2">H2 (16–24)</button>
+    <button data-q="none">Kosongkan</button>
+  </div>
+  <div id="chips" class="chips"></div>
+  <button id="applyPick" class="primary">Terapkan</button>
+</dialog>
+
+<dialog id="stroke">
+  <h2 id="strokeTitle">Urutan guratan</h2>
+  <div id="writers" class="writers"></div>
+  <button id="closeStroke" class="primary">Tutup</button>
+</dialog>
+
+<footer>Data kosakata mengacu pada <i>Hanyu Jiaocheng</i>. Data guratan: Hanzi Writer / Make Me a Hanzi.</footer>
+<script src="js/hanzi-writer.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

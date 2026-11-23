@@ -1,0 +1,54 @@
+:root{--bg:#EFE0C4;--paper:#FBF3E2;--maroon:#5E1420;--red:#B22A2E;--ink:#2B0C10;--line:#D9C3A0}
+*{box-sizing:border-box;margin:0}
+body{font-family:Figtree,system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center}
+header{width:100%;background:var(--maroon);color:var(--paper);text-align:center;padding:14px 12px 12px;border-bottom:4px solid var(--red)}
+h1{font:600 1.5rem "Noto Serif SC",serif}
+h1 span{font:600 1rem Figtree,sans-serif;margin-left:6px;opacity:.85}
+#info{font-size:.8rem;opacity:.75;margin-top:2px}
+main{width:100%;max-width:460px;padding:14px 14px 8px;display:flex;flex-direction:column;align-items:center;gap:12px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,.card:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{background:transparent;border:1.5px solid var(--maroon);color:var(--maroon);border-radius:99px;padding:8px 13px;font-size:.82rem;min-height:40px}
+.chip[aria-pressed=true]{background:var(--maroon);color:var(--paper)}
+.card{width:100%;height:min(30rem,62vh);min-height:24rem;perspective:1200px;cursor:pointer;position:relative}
+.face{position:absolute;inset:0;background:var(--paper);border:2px solid var(--maroon);border-radius:18px;box-shadow:6px 6px 0 var(--maroon);backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 20px 20px;text-align:center;overflow:auto}
+.back{transform:rotateY(180deg)}
+.card.flipped .front{transform:rotateY(-180deg)}
+.card.flipped .back{transform:rotateY(0)}
+.card:not(.flipped) .back{transform:rotateY(180deg)}
+.tag{position:absolute;top:14px;left:16px;font-size:.78rem;color:var(--red);font-weight:600}
+.hanzi{font:600 clamp(4rem,22vw,6.5rem)/1.1 "Noto Serif SC","Songti SC",serif;color:var(--maroon)}
+.py{font-size:1.5rem;color:var(--red);font-weight:600}
+.id{font-size:1.2rem}
+.sent{font:600 1.7rem/1.4 "Noto Serif SC",serif;color:var(--maroon)}
+.gram{font-size:.9rem;border-top:1px dashed var(--line);padding-top:10px;text-align:left}
+.hid{position:relative;cursor:pointer}
+.hid>span{visibility:hidden}
+.hid::after{content:"ketuk untuk lihat";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:400;color:#8a6b55;border:1.5px dashed var(--line);border-radius:8px}
+.nav{display:flex;align-items:center;gap:18px;font-weight:600}
+.round{width:48px;height:48px;border-radius:50%;border:2px solid var(--maroon);background:var(--paper);color:var(--maroon)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.actions button{padding:12px;border-radius:12px;border:2px solid var(--maroon);background:var(--paper);min-height:48px;font-weight:600}
+.actions button[data-mark].on{background:var(--maroon);color:var(--paper)}
+#btnHard.on{background:var(--red);border-color:var(--red)}
+.hint{font-size:.75rem;color:#6d5546;text-align:center}
+dialog{border:2px solid var(--maroon);border-radius:16px;background:var(--paper);color:var(--ink);padding:18px;width:min(92vw,440px);margin:auto}
+dialog::backdrop{background:rgba(43,12,16,.55)}
+dialog h2{font-size:1.1rem;margin-bottom:10px;color:var(--maroon)}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.quick button{border:1.5px solid var(--maroon);background:transparent;border-radius:8px;padding:7px 10px;font-size:.8rem}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;margin-bottom:14px}
+.chips label{border:1.5px solid var(--line);border-radius:8px;text-align:center;padding:10px 0;cursor:pointer;font-size:.85rem}
+.chips input{position:absolute;opacity:0}
+.chips label:has(input:checked){background:var(--maroon);color:var(--paper);border-color:var(--maroon)}
+.chips label:has(input:focus-visible){outline:3px solid var(--red)}
+.primary{width:100%;padding:12px;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:600}
+.writers{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:14px}
+.w{display:flex;flex-direction:column;align-items:center;gap:6px}
+.w .box{background:#fff;border:1.5px solid var(--line);border-radius:8px}
+.w .row{display:flex;gap:6px}
+.w .row button{border:1.5px solid var(--maroon);background:transparent;border-radius:8px;padding:6px 10px;font-size:.8rem}
+.err{color:var(--red);font-size:.8rem}
+footer{font-size:.72rem;color:#6d5546;text-align:center;padding:10px 16px 22px;max-width:460px}
+@media (prefers-reduced-motion:reduce){.face{transition:none}}
