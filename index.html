@@ -18,7 +18,8 @@
 <nav class="tabs" role="tablist" aria-label="Mode belajar">
   <button role="tab" data-mode="vocab" aria-selected="true">Kosakata</button>
   <button role="tab" data-mode="rad" aria-selected="false">Radikal</button>
-  <button role="tab" data-mode="group" aria-selected="false">Aksara per radikal</button>
+  <button role="tab" data-mode="group" aria-selected="false">Per Radikal</button>
+  <button role="tab" data-mode="gram" aria-selected="false">Tata Bahasa</button>
 </nav>
 
 <main id="viewCards">
@@ -49,8 +50,15 @@
 </main>
 
 <main id="viewGroup" hidden>
-  <p class="hint">Aksara dari kosakata bab 1–24, dikelompokkan menurut radikalnya. Ketuk radikal untuk membuka daftar, ketuk aksara untuk membuka kartu kata yang memuatnya.</p>
+  <p class="hint">Aksara dari kosakata bab 1–25, dikelompokkan menurut radikalnya. Ketuk radikal untuk membuka daftar, ketuk aksara untuk membuka kartu kata yang memuatnya.</p>
   <div id="groups" class="groups"></div>
+</main>
+
+<main id="viewGram" hidden>
+  <label class="gsel">Bab <select id="gSel"></select></label>
+  <div id="gList" class="glist"></div>
+  <button id="gGo" class="primary">Buka kosakata bab ini</button>
+  <p class="hint">Penjelasan dan contoh disusun ulang dengan kalimat sendiri berdasarkan poin yufa di <i>Hanyu Jiaocheng</i>. Rujuk buku untuk penjelasan lengkap.</p>
 </main>
 
 <dialog id="pick">
@@ -58,7 +66,7 @@
   <div class="quick">
     <button data-q="all">Semua</button>
     <button data-q="h1">H1 (1–15)</button>
-    <button data-q="h2">H2 (16–24)</button>
+    <button data-q="h2">H2 (16–25)</button>
     <button data-q="none">Kosongkan</button>
   </div>
   <div id="chips" class="chips"></div>

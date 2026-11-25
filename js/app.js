@@ -60,7 +60,7 @@ $('#card').addEventListener('keydown', e => { if (e.key === 'Enter') $('#card').
 $('#prev').onclick = () => go(-1);
 $('#next').onclick = () => go(1);
 document.addEventListener('keydown', e => {
-  if (mode === 'group' || document.querySelector('dialog[open]') || /BUTTON|INPUT/.test(e.target.tagName)) return;
+  if (mode === 'group' || mode === 'gram' || document.querySelector('dialog[open]') || /BUTTON|INPUT/.test(e.target.tagName)) return;
   if (e.key === 'ArrowRight') go(1);
   if (e.key === 'ArrowLeft') go(-1);
   if (e.code === 'Space') { e.preventDefault(); $('#card').classList.toggle('flipped'); }
@@ -186,9 +186,9 @@ $('#closeSearch').onclick = () => $('#search').close();
 function setMode(m, keep) {
   mode = m;
   document.querySelectorAll('.tabs [data-mode]').forEach(x => x.setAttribute('aria-selected', x.dataset.mode === m));
-  $('#viewCards').hidden = m === 'group'; $('#viewGroup').hidden = m !== 'group';
+  $('#viewCards').hidden = m === 'group' || m === 'gram'; $('#viewGroup').hidden = m !== 'group'; $('#viewGram').hidden = m !== 'gram';
   document.querySelectorAll('[data-only]').forEach(x => x.hidden = x.dataset.only !== m);
-  if (m === 'group') drawGroups(); else if (!keep) build();
+  if (m === 'group') drawGroups(); else if (m === 'gram') drawGram(); else if (!keep) build();
 }
 document.querySelectorAll('.tabs [data-mode]').forEach(b => b.onclick = () => setMode(b.dataset.mode));
 async function drawGroups() {
@@ -197,6 +197,20 @@ async function drawGroups() {
   $('#info').textContent = `${groups.length} radikal · ${groups.reduce((n, g) => n + g.c.length, 0)} aksara`;
   $('#groups').innerHTML = groups.map(g => { const x = info[g.r]; return `<details><summary><span class="gr" lang="zh-Hans">${esc(g.r)}</span><span class="gi"><b>${x ? esc(x.n + ' · ' + x.np) : 'Radikal ' + esc(g.r)}</b>${x ? esc(x.k) : 'Belum ada keterangan'}</span><span class="gn">${g.c.length}</span></summary><div class="gc">${g.c.map(([c, b]) => `<button data-c="${esc(c)}" title="Bab ${b}" lang="zh-Hans">${esc(c)}</button>`).join('')}</div></details>`; }).join('');
 }
+let gram = null;
+async function drawGram() {
+  if (!gram) { try { gram = await (await fetch('data/tatabahasa.json')).json(); } catch { $('#gList').textContent = 'Gagal memuat data.'; return; } }
+  const s = $('#gSel');
+  if (!s.options.length) { s.innerHTML = index.map(c => `<option value="${c.bab}">Bab ${c.bab}${gram[c.bab] ? '' : ' (tanpa yufa)'}</option>`).join(''); s.value = '10'; s.onchange = showGram; }
+  showGram();
+}
+function showGram() {
+  const b = $('#gSel').value, L = gram[b];
+  $('#info').textContent = `Tata bahasa · bab ${b}`; $('#gGo').textContent = `Buka kosakata bab ${b}`;
+  $('#gList').innerHTML = L ? L.map(p => `<article class="gi2"><h3><span class="han" lang="zh-Hans">${esc(p.t)}</span><small>${esc(p.j)}</small></h3>${p.p ? `<div class="pat" lang="zh-Hans">${esc(p.p)}</div>` : ''}<p>${esc(p.e)}</p><ul>${p.x.map(x => `<li><span class="sent2" lang="zh-Hans">${esc(x[0])}</span><span class="py2">${esc(x[1])}</span><span>${esc(x[2])}</span></li>`).join('')}</ul></article>`).join('')
+    : `<p class="hint">Bab ${b} tidak memiliki bagian tata bahasa (语法) tersendiri di buku; isinya fonetik dan catatan.</p>`;
+}
+$('#gGo').onclick = () => { sel = new Set([+$('#gSel').value]); store('sel', [...sel]); labelPick(); setMode('vocab'); };
 $('#groups').addEventListener('click', async e => {
   const b = e.target.closest('button[data-c]'); if (!b) return;
   const c = b.dataset.c; await loadAll();
